@@ -1,0 +1,24 @@
+{
+  "name": "x-api",
+  "version": "0.0.1",
+  "description": "x-api",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
+  },
+  "author": "arano",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.2.2",
+    "husky": "^9.1.1"
+  }
+}
