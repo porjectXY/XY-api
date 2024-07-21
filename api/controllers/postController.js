@@ -1,5 +1,4 @@
 import Post from '../models/Post.js'
-// import Comment from '../models/Comment.js'
 import Service from '../services/Service.js'
 
 const servicePost = new Service(Post)
