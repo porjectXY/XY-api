@@ -1,20 +1,33 @@
 import User from '../models/User.js'
+import Post from '../models/Post.js'
+import Comment from '../models/Comment.js'
 import Service from '../services/Service.js'
 
 const serviceUser = new Service(User)
+const servicePost = new Service(Post)
+const serviceComment = new Service(Comment)
 
 const getProfile = async (req, res) => {
   try {
+    // Obtener el usuario
     const user = await serviceUser.getById(req.params.userId).select('-password')
     if (!user) {
-      return res.json(404).json({
+      return res.status(404).json({
         msg: 'User not found'
       })
     }
-    res.status(200).json(user)
+    const posts = await servicePost.get({ userId: req.params.userId })
+
+    const comments = await serviceComment.get({ userId: req.params.userId })
+
+    res.status(200).json({
+      user,
+      posts,
+      comments
+    })
   } catch (error) {
     res.status(500).json({
-      msg: 'Error Servidor',
+      msg: 'Server Error',
       error: error.message
     })
   }
@@ -27,7 +40,7 @@ const updateProfile = async (req, res) => {
     res.status(200).json(user)
   } catch (error) {
     res.status(500).json({
-      erro: error.message
+      error: error.message
     })
   }
 }

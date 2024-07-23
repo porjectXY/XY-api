@@ -26,4 +26,11 @@ api.use('/search', searchRouter)
 api.use('/notifications', notificationRouter)
 api.use('/test', testRouter)
 
+api.use((err, req, res, _next) => {
+  console.error(err)
+  res.status(500).json({
+    error: err
+  })
+})
+
 export default api

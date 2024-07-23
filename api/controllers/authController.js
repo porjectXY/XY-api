@@ -58,7 +58,14 @@ const login = async (req, res) => {
   }
 }
 
+const me = (req, res) => {
+  return res.json({
+    user: req.user
+  })
+}
+
 export {
   register,
-  login
+  login,
+  me
 }
