@@ -9,7 +9,6 @@ const serviceComment = new Service(Comment)
 
 const getProfile = async (req, res) => {
   try {
-    // Obtener el usuario
     const user = await serviceUser.getById(req.params.userId).select('-password')
     if (!user) {
       return res.status(404).json({

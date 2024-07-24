@@ -27,8 +27,12 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const posts = await servicePost.get().populate('userId', 'username') // Asegúrate de que 'userId' está referenciado en el modelo
-      .select('userId username content comments likes')
+    const posts = await servicePost.get({})
+      .populate({
+        path: 'userId',
+        select: 'username avatar'
+      })
+      .exec()
     if (!posts) {
       return res.status(404).json({
         msg: 'posts is no founds'
@@ -43,7 +47,7 @@ const getPosts = async (req, res) => {
 const getPostsUserById = async (req, res) => {
   try {
     const { userId } = req.params
-    const posts = await servicePost.get({ userId }).populate('userId', 'username') // Asegúrate de que 'userId' está referenciado en el modelo
+    const posts = await servicePost.get({ userId }).populate('userId', 'username')
       .select('userId username content comments likes')
     if (!posts || posts.length === 0) {
       return res.status(404).json({
